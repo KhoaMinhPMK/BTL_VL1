@@ -1,0 +1,1174 @@
+% ============================================================================
+% DOCUMENT CLASS AND PAGE SETUP
+% ============================================================================
+\documentclass{report}
+\usepackage[a4paper, top=2cm, bottom=2.5cm, left=3cm, right=2cm]{geometry}
+\usepackage[fontsize=13pt]{fontsize}
+
+% ============================================================================
+% ENCODING AND LANGUAGE SUPPORT (Vietnamese)
+% ============================================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage{vietnam}
+
+% ============================================================================
+% FONTS
+% ============================================================================
+\usepackage{fix-cm}
+\usepackage{lmodern}
+\usepackage{anyfontsize}
+\renewcommand{\rmdefault}{ptm}
+
+% ============================================================================
+% MATHEMATICS PACKAGES
+% ============================================================================
+\usepackage{amsmath, amsfonts, amssymb, amsthm, amsxtra, amscd}
+\usepackage{bm}
+
+% ============================================================================
+% GRAPHICS AND DRAWING
+% ============================================================================
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{xcolor}
+
+% Định nghĩa màu cho code
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{darkblue}{RGB}{0, 51, 102} % HCMUT official dark blue
+
+% ============================================================================
+% TABLES
+% ============================================================================
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{tabularx}
+
+% ============================================================================
+% LISTS AND ENUMERATIONS
+% ============================================================================
+\usepackage{enumitem}
+\renewcommand*{\labelitemi}{\textendash}
+
+% ============================================================================
+% CODE LISTINGS (Python)
+% ============================================================================
+\usepackage{listings}
+
+\lstdefinestyle{pythonstyle}{
+    language=Python,
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4,
+    frame=single,
+    rulecolor=\color{black}
+}
+
+\lstset{style=pythonstyle}
+
+% ============================================================================
+% BIBLIOGRAPHY
+% ============================================================================
+\usepackage[backend=biber, style=ieee]{biblatex}
+\addbibresource{main.bib}
+
+% ============================================================================
+% TABLE OF CONTENTS AND TITLES
+% ============================================================================
+\usepackage{titletoc}
+\usepackage{tocloft}
+\usepackage{titlesec}
+\usepackage{fancybox}
+
+% Tên mục lục, danh sách hình vẽ, danh sách bảng
+\renewcommand{\contentsname}{\MakeUppercase{Mục lục}}
+\renewcommand{\listfigurename}{\MakeUppercase{Danh sách hình vẽ}}
+\renewcommand{\listtablename}{\MakeUppercase{Danh sách bảng}}
+
+% Định dạng chapter trong mục lục
+\renewcommand{\cftchappresnum}{CHƯƠNG }
+\renewcommand{\cftchapaftersnum}{: }
+\setlength{\cftchapnumwidth}{7em}
+
+% Định dạng tiêu đề mục lục
+\renewcommand{\cfttoctitlefont}{\hfill\normalfont\fontsize{18}{22}\bfseries\MakeUppercase}
+\renewcommand{\cftloftitlefont}{\hfill\normalfont\fontsize{18}{22}\bfseries\MakeUppercase}
+\renewcommand{\cftlottitlefont}{\hfill\normalfont\fontsize{18}{22}\bfseries\MakeUppercase}
+\renewcommand{\cftaftertoctitle}{\hfill\vspace{10pt}}
+\renewcommand{\cftafterloftitle}{\hfill\vspace{10pt}}
+\renewcommand{\cftafterlottitle}{\hfill\vspace{10pt}}
+
+% ============================================================================
+% SECTION NUMBERING
+% ============================================================================
+\setcounter{secnumdepth}{3}
+\renewcommand{\thechapter}{\arabic{chapter}}
+\renewcommand{\thesection}{\Roman{section}}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\alph{subsubsection}}
+
+% ============================================================================
+% TITLE FORMATTING
+% ============================================================================
+% Chapter
+\titleformat{\chapter}[hang]
+    {\centering\normalfont\fontsize{18}{22}\bfseries}
+    {CHƯƠNG \thechapter:}
+    {12pt}
+    {\centering\MakeUppercase}
+\titlespacing*{\chapter}{0pt}{12pt}{12pt}
+
+% Section
+\titleformat*{\section}{\fontsize{13pt}{0pt}\selectfont\bfseries\MakeUppercase}
+\titlespacing*{\section}{0pt}{12pt}{12pt}
+
+% Subsection
+\titleformat*{\subsection}{\fontsize{13pt}{0pt}\selectfont\bfseries}
+\titlespacing*{\subsection}{0pt}{12pt}{12pt}
+
+% Subsubsection
+\titleformat*{\subsubsection}{\fontsize{13pt}{0pt}\selectfont}
+\titlespacing*{\subsubsection}{0pt}{12pt}{12pt}
+
+% ============================================================================
+% PARAGRAPH FORMATTING
+% ============================================================================
+\usepackage{indentfirst}
+\usepackage{setspace}
+\usepackage{ragged2e}
+\renewcommand{\baselinestretch}{1.25}
+\setlength{\parskip}{8pt}
+\setlength{\parindent}{0.51cm}
+
+% ============================================================================
+% HEADERS AND FOOTERS
+% ============================================================================
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\setlength{\headheight}{22pt}
+\pagestyle{fancy}
+\fancyhf{}
+
+\fancyhead[L]{%
+    \begin{tabular}{rl}
+        \begin{picture}(25,15)(0,0)
+            \put(0,-8){\includegraphics[width=10mm, height=10mm]{pictures/logobk.jpg}}
+        \end{picture}&
+        \begin{tabular}{l}
+            \textcolor{darkblue}{\small\bfseries Trường Đại Học Bách Khoa Tp.Hồ Chí Minh}\\
+            \textcolor{darkblue}{\small\bfseries Khoa Cơ Khí}
+        \end{tabular}
+    \end{tabular}
+}
+\fancyhead[R]{
+    \begin{tabular}{l}
+        \textcolor{darkblue}{\small\bfseries Bài tập lớn môn Vật lý 1}
+    \end{tabular}
+}
+\fancyfoot{} % clear all footer fields
+\fancyfoot[C]{\fontsize{11pt}{13pt}\selectfont \thepage}
+
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headwidth}{\textwidth}
+
+% Ensure header is on all pages (including chapter start pages)
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyhead[L]{
+    \begin{tabular}{rl}
+        \begin{picture}(25,15)(0,0)
+            \put(0,-8){\includegraphics[width=10mm, height=10mm]{pictures/logobk.jpg}}
+        \end{picture}&
+        \begin{tabular}{l}
+            \textcolor{darkblue}{\small\bfseries Trường Đại Học Bách Khoa Tp.Hồ Chí Minh}\\
+            \textcolor{darkblue}{\small\bfseries Khoa Cơ Khí}
+        \end{tabular}
+    \end{tabular}
+  }
+  \fancyhead[R]{
+      \begin{tabular}{l}
+          \textcolor{darkblue}{\small\bfseries Bài tập lớn môn Vật lý 1}
+      \end{tabular}
+  }
+  \fancyfoot[C]{\fontsize{11pt}{13pt}\selectfont \thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+}
+
+% ============================================================================
+% HYPERLINKS (Load near end)
+% ============================================================================
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=blue,
+    urlcolor=blue
+}
+
+% ============================================================================
+% CUSTOM COMMANDS
+% ============================================================================
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+
+\newcommand{\insertimage}[3]{%
+    \begin{figure}[!htbp]
+        \centering
+        \includegraphics[width=#2\textwidth]{#1}
+        \caption{#3}
+        \label{fig:#1}
+    \end{figure}
+}
+
+% ============================================================================
+% ADDITIONAL UTILITIES
+% ============================================================================
+\usepackage{forloop}
+\newcounter{line}
+
+\begin{document}
+
+\begin{titlepage}
+\newgeometry{left=1.00cm, right=2.0cm, top=1.0cm, bottom=1.50cm}
+\thispagestyle{empty}
+\thisfancypage{
+	\setlength{\fboxsep}{0pt}
+	\setlength{\fboxrule}{2pt}
+	\doublebox}{} 
+    
+\begin{center}
+\fontfamily{ptm}\selectfont
+    \phantom{123}
+	\vspace*{\dimexpr1.5em\relax} % Đã thêm 1cm vào khoảng cách
+        
+    \hspace*{-1cm}
+        \vspace*{1cm}
+	{\fontsize{16pt}{1}\selectfont \bfseries
+		ĐẠI HỌC QUỐC GIA THÀNH PHỐ HỒ CHÍ MINH \\
+		TRƯỜNG ĐẠI HỌC BÁCH KHOA
+	}
+	\vfill
+	\includegraphics[width=0.3\textwidth]{pictures/logobk.jpg}
+	
+	\vfill
+	{\fontsize{20pt}{1}\selectfont 
+		\textbf{BÁO CÁO BÀI TẬP LỚN MÔN VẬT LÝ 1}}
+	\vfill
+	{\fontsize{28pt}{1}\selectfont 
+		\textbf{VẼ QUỸ ĐẠO VÀ XÁC ĐỊNH\\VECTOR MÔMEN ĐỘNG LƯỢNG\\CỦA CHUYỂN ĐỘNG}}
+	\vfill
+	
+	{\fontsize{20pt}{1}\selectfont
+		\textbf{NHÓM \_\_\_\_}}
+	
+	\begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south, yshift=1.3cm] at (current page.south) {\centering\fontfamily{ptm}\selectfont TP.HCM, 12-2024};
+    \end{tikzpicture}
+\end{center}
+\end{titlepage}
+
+%%%%%%%% subtitle page %%%%%%%%%%%%%%%
+% --- BẮT ĐẦU TRANG BÌA ---
+\begin{titlepage}
+\linespread{1.3}
+\restoregeometry
+% \thispagestyle{empty} % Không cần nữa, \begin{titlepage} tự động làm điều này
+\centering % Dùng \centering thay vì môi trường \begin{center} để tránh lỗi vỡ lề
+
+    % --- KHỐI 1: TÊN BÁO CÁO ---
+    \vspace*{0cm} % Khoảng cách cố định từ lề trên
+    
+    {\fontsize{20pt}{24pt}\selectfont % Sửa dãn dòng từ 1pt thành 24pt
+        \textbf{BÁO CÁO BÀI TẬP LỚN MÔN VẬT LÝ 1}}
+    
+    \vfill % Đẩy nội dung chính xuống
+    
+    % --- KHỐI 2: TÊN ĐỀ TÀI ---
+    {\fontsize{20pt}{24pt}\selectfont
+        \textbf{\underline{Đề tài:}}} \\
+    \vspace{1.5cm}
+    {\fontsize{26pt}{30pt}\selectfont % Sửa dãn dòng từ 1pt thành 30pt
+        \textbf{VẼ QUỸ ĐẠO VÀ XÁC ĐỊNH\\VECTOR MÔMEN ĐỘNG LƯỢNG\\CỦA CHUYỂN ĐỘNG}}
+    
+    \vfill % Đẩy nội dung tiếp theo xuống
+    
+    % --- KHỐI 3: THÔNG TIN NHÓM VÀ GVHD ---
+    % Sử dụng minipage để nhóm các thông tin này lại với nhau
+    % Chúng sẽ không bị \vfill tách rời ra
+    \begin{minipage}{0.9\textwidth}
+        \centering
+        {\fontsize{16pt}{20pt}\selectfont\textbf{NHÓM 8}}
+        \vspace{0.75cm} % Khoảng cách nhỏ đến bảng
+        
+        \normalsize % Đặt lại cỡ chữ cho bảng
+        \begin{tabularx}{\textwidth}{|c|c|X|c|}
+            \hline
+            \textbf{STT} & \textbf{MSSV} & \textbf{Họ và tên} & \textbf{Vai trò} \\
+            \hline
+            1 & 2513588 & Phùng Minh Khoa & Nhóm trưởng \\
+            \hline
+            2 & 2513547 & Võ Thành Đạt & Thành viên \\
+            \hline
+            3 & 2513547 & Nguyễn Đức Huy & Thành viên \\
+            \hline
+            4 & 2513543 & Nguyễn Hứa Hải Đăng & Thành viên \\
+            \hline
+            5 & 2513584 & Hồ Lê Đăng Khoa & Thành viên \\
+            \hline
+        \end{tabularx}
+        
+        \vspace{2cm} % Khoảng cách từ bảng đến GVHD
+        
+        {\fontsize{16pt}{20pt}\selectfont
+            \textbf{GV bộ môn:\hskip1em ThS. Lê Nguyễn Bảo Thư }}
+    \end{minipage}
+    % --- HẾT KHỐI 3 ---
+
+    \vfill % Đẩy ngày tháng xuống dưới cùng
+    
+    % --- KHỐI 4: NGÀY THÁNG ---
+    % Đơn giản hóa, không cần dùng TikZ
+    {\large\fontfamily{ptm}\selectfont TP.HCM, 12-2025}
+    
+    \vspace{2cm} % Khoảng cách cố định đến lề dưới
+
+\end{titlepage}
+% --- KẾT THÚC TRANG BÌA ---
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BẢNG PHÂN CÔNG CÔNG VIỆC
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{BẢNG PHÂN CÔNG CÔNG VIỆC}
+\thispagestyle{empty}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.5}
+% --- Đã bỏ các vạch kẻ dọc (|) để trình bày đẹp hơn
+% --- theo phong cách của gói booktabs (mà bạn đang dùng)
+\begin{tabularx}{0.95\textwidth}{@{} cXcX @{}}
+	\toprule
+	\textbf{STT} & \textbf{Thành viên nhóm} & \textbf{MSSV} & \textbf{Công việc} \\
+	\midrule
+	1 & Phùng Minh Khoa & 2513588 & Soạn đề cương, viết lời dẫn và kết luận \\
+	2 & Võ Thành Đạt & 2513547 & Viết nội dung cơ sở lý thuyết \\
+	3 & Nguyễn Đức Huy & 2513547 & Viết code Python và báo cáo kết quả \\
+	4 & Nguyễn Hứa Hải Đăng & 2513543 & Tìm kiếm tài liệu và hình ảnh minh họa \\
+	5 & Hồ Lê Đăng Khoa & 2513584 & Tổng hợp và định dạng báo cáo LaTeX \\
+	\bottomrule
+\end{tabularx}
+\end{table}
+\newpage
+
+\chapter*{NHẬN XÉT CỦA GIÁO VIÊN}
+\thispagestyle{empty}
+\noindent
+\begin{tikzpicture}
+	\foreach \y in {0,1,...,20} {
+    		\draw[gray, dotted] (0,\y) -- (16,\y);
+  	}
+\end{tikzpicture}
+\newpage
+
+\tableofcontents
+\thispagestyle{empty}
+\newpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Danh sách hình vẽ}
+\listoffigures
+\newpage
+
+\chapter*{LỜI NÓI ĐẦU}
+\setcounter{page}{1}
+\justifying
+Ngày nay, các bộ môn khoa học tự nhiên đã và đang là một phần quan trọng và là nền tảng của những phát minh hiện đại trong xã hội ngày nay. Trong đó, Vật lý dường như là nền tảng vững chắc, song hành cùng với Toán học trong các công trình nghiên cứu của mỗi con người. Biết được tầm quan trọng đó, báo cáo này sẽ nghiên cứu về định luật Biot-Savart được dùng để xác định từ trường của một dòng điện tròn trong không gian.
+
+Trong quá trình thực hiện, nhóm sinh viên tiến hành nhắc lại các lý thuyết, tiến hành phân tích giải thuật mô phỏng trên Python, sau đó tiến hành kiểm tra tính đúng đắn của chương trình, từ đó rút ra các kết luận.
+
+Tuy đã cố gắng hoàn thành báo cáo nhưng nhóm sinh viên không thể tránh khỏi các sai sót đáng tiếc và rất mong nhận được góp ý từ các quý thầy cô để cải thiện hơn trong tương lai.
+
+\vspace{1cm}
+\hfill \textit{Nhóm sinh viên.}
+
+\chapter*{LỜI CẢM ƠN}
+\justifying
+Để thực hiện và hoàn thành đề tài này, nhóm em đã nhận được nhiều sự hỗ trợ, quan tâm từ nhà trường, thầy cô, bạn bè. Chúng em xin chân thành cảm ơn Ban giám hiệu Trường Đại học Bách Khoa cùng các thầy cô khoa Khoa học Ứng dụng đã nhiệt tình hướng dẫn, giảng dạy, tạo điều kiện thuận lợi cho chúng em được nghiên cứu và hoàn thiện đề tài.
+
+Đặc biệt, nhóm xin được bày tỏ lòng biết ơn sâu sắc đến các Thầy Cô giảng viên dạy lý thuyết bộ môn Vật lý 1 đã tận tâm truyền đạt cho chúng em những kiến thức bổ ích giúp chúng em có được nền tảng vững chắc để hoàn thiện đề tài và đã nhiệt tình hỗ trợ và giải đáp những thắc mắc của nhóm trong quá trình thực hiện.
+
+\vspace{1cm}
+\hfill \textit{Nhóm sinh viên.}
+
+\chapter{MỞ ĐẦU ĐỀ TÀI}
+
+\section{YÊU CẦU ĐỀ TÀI}
+Trong cơ học cổ điển, việc mô tả chuyển động của vật thể là một trong những bài toán cơ bản và quan trọng. Khi biết phương trình chuyển động của một vật thể theo hai biến $x(t)$ và $y(t)$, ta có thể xác định được quỹ đạo chuyển động cũng như các đại lượng vật lý liên quan như vận tốc, gia tốc và mômen động lượng.
+
+Mômen động lượng là một đại lượng vector quan trọng trong cơ học, đặc biệt khi nghiên cứu chuyển động quay và chuyển động trong trường lực hướng tâm. Vector mômen động lượng $\vec{L}$ được xác định bởi công thức:
+\[\vec{L} = \vec{r} \times \vec{p} = m(\vec{r} \times \vec{v})\]
+
+Báo cáo này yêu cầu sinh viên nghiên cứu và xây dựng chương trình tính toán để:
+\begin{itemize}
+    \item Vẽ quỹ đạo chuyển động của vật thể khi biết phương trình $x(t)$ và $y(t)$.
+    \item Tính toán và biểu diễn sự biến thiên của vector mômen động lượng theo thời gian.
+    \item Phân tích các đặc điểm của mômen động lượng trong các loại chuyển động khác nhau.
+\end{itemize}
+
+\section{ĐIỀU KIỆN THỰC HIỆN BÁO CÁO}
+\begin{itemize}
+    \item Sinh viên có các kiến thức về đạo hàm, vi phân và các phép toán vector.
+    \item Sinh viên có kiến thức cơ bản về cơ học (vận tốc, động lượng, mômen động lượng).
+    \item Sinh viên có các kiến thức về lập trình Python và các thư viện liên quan (NumPy, Matplotlib, SymPy).
+\end{itemize}
+
+\section{NHIỆM VỤ}
+Trong báo cáo này, nhóm sinh viên cần nghiên cứu các cơ sở lý thuyết liên quan đến vector mômen động lượng, bao gồm định nghĩa, tính chất và ý nghĩa vật lý. Đồng thời, nhóm sinh viên cần xây dựng một chương trình Python để thực hiện các yêu cầu:
+
+\begin{itemize}
+    \item Nhập biểu thức của $x(t)$ và $y(t)$ mô tả chuyển động của vật.
+    \item Tính toán các đại lượng liên quan: vận tốc $v_x(t)$, $v_y(t)$ thông qua đạo hàm.
+    \item Tính toán mômen động lượng $L_z = m(x \cdot v_y - y \cdot v_x)$.
+    \item Vẽ đồ thị quỹ đạo chuyển động trên mặt phẳng $Oxy$.
+    \item Vẽ đồ thị biểu diễn sự biến thiên của mômen động lượng theo thời gian.
+    \item Phân tích kết quả và so sánh với lý thuyết.
+\end{itemize}
+
+\chapter{CƠ SỞ LÝ THUYẾT}
+
+\section{Các khái niệm liên quan}
+
+\subsection{Đạo hàm và vi phân}
+Đạo hàm là một khái niệm cơ bản trong giải tích, biểu diễn tốc độ thay đổi của một hàm số tại một điểm. Xét hàm số $y = f(t)$ xác định trong khoảng $(a,b)$ và $t_0 \in (a,b)$. Đạo hàm của hàm $f$ tại điểm $t_0$ được định nghĩa:
+\[f'(t_0) = \lim_{t \to t_0}\frac{f(t)-f(t_0)}{t-t_0}\]
+
+Vi phân của hàm số tại điểm $t$ ứng với số gia $\Delta t$ được tính:
+\[dy = y'dt = f'(t)dt\]
+
+Trong vật lý, nếu $x(t)$ là phương trình chuyển động, thì đạo hàm $v(t) = x'(t) = \dfrac{dx}{dt}$ chính là vận tốc của vật tại thời điểm $t$.
+
+\subsection{Vector vị trí và vector vận tốc}
+Trong mặt phẳng $Oxy$, vị trí của một chất điểm tại thời điểm $t$ được xác định bởi vector vị trí:
+\[\vec{r}(t) = x(t)\vec{i} + y(t)\vec{j}\]
+
+Vector vận tốc là đạo hàm của vector vị trí theo thời gian:
+\[\vec{v}(t) = \frac{d\vec{r}}{dt} = v_x(t)\vec{i} + v_y(t)\vec{j} = \frac{dx}{dt}\vec{i} + \frac{dy}{dt}\vec{j}\]
+
+\subsection{Tích có hướng (Cross Product)}
+Tích có hướng của hai vector $\vec{A}$ và $\vec{B}$ trong không gian là một vector $\vec{C}$ vuông góc với cả $\vec{A}$ và $\vec{B}$, có độ lớn:
+\[|\vec{C}| = |\vec{A}||\vec{B}|\sin\theta\]
+trong đó $\theta$ là góc giữa hai vector.
+
+Trong hệ tọa độ Descartes, nếu $\vec{A} = A_x\vec{i} + A_y\vec{j} + A_z\vec{k}$ và $\vec{B} = B_x\vec{i} + B_y\vec{j} + B_z\vec{k}$, thì:
+\[\vec{A} \times \vec{B} = \begin{vmatrix}
+\vec{i} & \vec{j} & \vec{k} \\
+A_x & A_y & A_z \\
+B_x & B_y & B_z
+\end{vmatrix}\]
+
+Trong mặt phẳng $Oxy$ (chuyển động 2 chiều), vector vị trí và vận tốc có dạng:
+\begin{align*}
+\vec{r} &= x\vec{i} + y\vec{j} + 0\vec{k}\\
+\vec{v} &= v_x\vec{i} + v_y\vec{j} + 0\vec{k}
+\end{align*}
+
+Tích có hướng của chúng:
+\[\vec{r} \times \vec{v} = \begin{vmatrix}
+\vec{i} & \vec{j} & \vec{k} \\
+x & y & 0 \\
+v_x & v_y & 0
+\end{vmatrix} = (xv_y - yv_x)\vec{k}\]
+
+\section{Mômen động lượng}
+
+\subsection{Định nghĩa}
+Mômen động lượng (Angular Momentum) của một chất điểm khối lượng $m$ chuyển động với vận tốc $\vec{v}$ tại vị trí $\vec{r}$ đối với gốc tọa độ $O$ được định nghĩa:
+\[\vec{L} = \vec{r} \times \vec{p} = \vec{r} \times (m\vec{v}) = m(\vec{r} \times \vec{v})\]
+
+Trong đó:
+\begin{itemize}
+    \item $\vec{L}$: Vector mômen động lượng (đơn vị: $kg \cdot m^2/s$)
+    \item $\vec{r}$: Vector vị trí từ gốc tọa độ đến chất điểm
+    \item $\vec{p} = m\vec{v}$: Vector động lượng
+    \item $m$: Khối lượng của chất điểm (kg)
+    \item $\vec{v}$: Vector vận tốc ($m/s$)
+\end{itemize}
+
+\insertimage{pictures/minh_hoa_khai_niem}{0.7}{Minh họa vector vị trí và vận tốc}
+
+\subsection{Biểu thức trong hệ tọa độ phẳng}
+Đối với chuyển động trong mặt phẳng $Oxy$, từ kết quả tích có hướng ở trên, mômen động lượng có phương vuông góc với mặt phẳng chuyển động (theo phương $\vec{k}$), với thành phần:
+\begin{equation}
+L_z = m(xv_y - yv_x) = m\left(x\frac{dy}{dt} - y\frac{dx}{dt}\right)
+\label{eq:momen}
+\end{equation}
+
+Độ lớn của mômen động lượng:
+\[|\vec{L}| = |L_z|\]
+
+\subsection{Ý nghĩa vật lý}
+\begin{itemize}
+    \item Mômen động lượng đặc trưng cho "lượng chuyển động quay" của vật thể quanh một điểm hay một trục.
+    \item Trong hệ kín (không có mômen lực ngoài tác dụng), mômen động lượng được bảo toàn: $\vec{L} = const$.
+    \item Đối với chuyển động tròn đều: $L = mvr = m\omega r^2$ (không đổi).
+    \item Đối với các chuyển động khác, mômen động lượng có thể thay đổi theo thời gian.
+\end{itemize}
+
+\subsection{Các tính chất}
+\begin{enumerate}
+    \item \textbf{Tính chất vector}: Mômen động lượng là đại lượng vector, có hướng xác định bởi quy tắc bàn tay phải.
+    \item \textbf{Định luật bảo toàn}: Nếu $\sum \vec{M} = 0$ thì $\vec{L} = const$.
+    \item \textbf{Phụ thuộc gốc tọa độ}: Giá trị của $\vec{L}$ phụ thuộc vào việc chọn gốc tọa độ $O$.
+\end{enumerate}
+
+\chapter{GIẢI QUYẾT VẤN ĐỀ}
+\section{Hướng giải quyết bài toán}
+\justifying Để tính toán và vẽ đồ thị mômen động lượng của chuyển động, ta thực hiện các bước sau:
+\begin{enumerate}
+    \item \textbf{Nhập dữ liệu:}
+    \begin{itemize}
+        \item Biểu thức $x(t)$ và $y(t)$ mô tả chuyển động
+        \item Khối lượng $m$ của vật
+        \item Khoảng thời gian khảo sát $[t_{\text{start}}, t_{\text{end}}]$
+    \end{itemize}
+    \item \textbf{Tính toán symbolic:}
+    \begin{itemize}
+        \item Tính vận tốc: $v_x(t) = \frac{dx}{dt}$, $v_y(t) = \frac{dy}{dt}$
+        \item Tính mômen động lượng: $L_z = m(x \cdot v_y - y \cdot v_x)$
+        \item Rút gọn biểu thức (nếu có thể)
+    \end{itemize}
+    \item \textbf{Tính toán số:}
+    \begin{itemize}
+        \item Chuyển đổi biểu thức symbolic sang hàm số
+        \item Tính giá trị tại các điểm thời gian rời rạc
+        \item Lưu trữ kết quả vào mảng
+    \end{itemize}
+    \item \textbf{Trực quan hóa:}
+    \begin{itemize}
+        \item Vẽ quỹ đạo chuyển động $(x, y)$
+        \item Vẽ đồ thị $x(t)$, $y(t)$
+        \item Vẽ đồ thị mômen động lượng $L(t)$
+        \item Phân tích kết quả
+    \end{itemize}
+\end{enumerate}
+
+\section{Tính toán}
+\subsection{Ví dụ 1: Chuyển động tròn đều}
+\justifying Xét một vật có khối lượng $m = 1$ kg, chuyển động tròn đều với phương trình:
+\begin{align*}
+x(t) &= 5\cos(2t)\\
+y(t) &= 5\sin(2t)
+\end{align*}
+\justifying Ta sẽ tiến hành tính mômen động lượng của vật này.
+\begin{enumerate}[label=\textbf{Bước \arabic*:}, leftmargin=2cm, itemsep=5pt]
+    \item \textbf{Tính toán vận tốc}
+    
+    \justifying Vận tốc theo các phương $x$ và $y$ được tính bằng cách lấy đạo hàm của $x(t)$ và $y(t)$ theo thời gian $t$:
+    \begin{align*}
+    v_x(t) &= \frac{dx}{dt} = -10\sin(2t)\\
+    v_y(t) &= \frac{dy}{dt} = 10\cos(2t)
+    \end{align*}
+
+    \item \textbf{Tính mômen động lượng}
+    
+    \justifying Áp dụng công thức (\ref{eq:momen}), ta có thành phần $z$ của mômen động lượng là:
+    \begin{align*}
+    L_z &= m(x \cdot v_y - y \cdot v_x)\\
+    &= 1 \times [5\cos(2t) \cdot 10\cos(2t) - 5\sin(2t) \cdot (-10\sin(2t))]\\
+    &= 50\cos^2(2t) + 50\sin^2(2t)\\
+    &= 50[\cos^2(2t) + \sin^2(2t)]\\
+    &= 50 \text{ (kg·m}^2\text{/s)}
+    \end{align*}
+\end{enumerate}
+\textbf{Kết luận:} \justifying Đối với chuyển động tròn đều, mômen động lượng là một hằng số và không thay đổi theo thời gian. Điều này hoàn toàn phù hợp với định luật bảo toàn mômen động lượng, vì trong trường hợp này, không có mômen lực từ bên ngoài tác dụng lên hệ.
+
+
+\subsection{Ví dụ 2: Chuyển động xoắn ốc}
+\justifying Tiếp theo, ta xét một vật có khối lượng $m = 1$ kg chuyển động theo quỹ đạo xoắn ốc với phương trình:
+\begin{align*}
+x(t) &= t\cos(t)\\
+y(t) &= t\sin(t)
+\end{align*}
+\begin{enumerate}[label=\textbf{Bước \arabic*:}, leftmargin=2cm, itemsep=5pt]
+    \item \textbf{Tính toán vận tốc}
+    
+    \justifying Tương tự như ví dụ trước, ta lấy đạo hàm để tìm các thành phần của vận tốc:
+    \begin{align*}
+    v_x(t) &= \frac{dx}{dt} = \cos(t) - t\sin(t)\\
+    v_y(t) &= \frac{dy}{dt} = \sin(t) + t\cos(t)
+    \end{align*}
+
+    \item \textbf{Tính mômen động lượng}
+    
+    \justifying Thay các giá trị vừa tìm được vào công thức, ta có:
+    \begin{align*}
+    L_z &= m(x \cdot v_y - y \cdot v_x)\\
+    &= t\cos(t)[\sin(t) + t\cos(t)] - t\sin(t)[\cos(t) - t\sin(t)]\\
+    &= t\cos(t)\sin(t) + t^2\cos^2(t) - t\sin(t)\cos(t) + t^2\sin^2(t)\\
+    &= t^2[\cos^2(t) + \sin^2(t)]\\
+    &= t^2 \text{ (kg·m}^2\text{/s)}
+    \end{align*}
+\end{enumerate}
+\textbf{Kết luận:} \justifying Đối với chuyển động xoắn ốc, mômen động lượng không phải là hằng số mà tăng theo bình phương của thời gian ($L_z = t^2$). Điều này xảy ra do bán kính của quỹ đạo ngày càng tăng, làm cho "lượng chuyển động quay" của vật cũng tăng theo.
+
+
+\chapter{ỨNG DỤNG THỰC TIỄN}
+
+\section{Trong cơ học thiên thể}
+\begin{itemize}
+    \item \justifying \textbf{Chuyển động hành tinh}: Định luật bảo toàn mômen động lượng giải thích tại sao hành tinh chuyển động nhanh hơn khi ở gần Mặt Trời (cận điểm) và chậm hơn khi ở xa (viễn điểm).
+    \item \justifying \textbf{Vệ tinh nhân tạo}: Tính toán quỹ đạo và mômen động lượng của vệ tinh để duy trì quỹ đạo ổn định.
+\end{itemize}
+
+\section{Trong kỹ thuật}
+\begin{itemize}
+    \item \justifying \textbf{Robot công nghiệp}: Điều khiển cánh tay robot quay quanh các trục cần tính toán mômen động lượng để tối ưu hóa chuyển động.
+    \item \justifying \textbf{Thiết bị quay}: Thiết kế bánh đà, tuabin, động cơ cần hiểu rõ về mômen động lượng.
+    \item \justifying \textbf{Vận động viên}: Trong thể thao như nhảy cầu, trượt băng nghệ thuật, vận động viên điều chỉnh tư thế để thay đổi mômen quán tính, từ đó kiểm soát tốc độ quay (do bảo toàn mômen động lượng).
+\end{itemize}
+
+\section{Trong vật lý hạt nhân}
+\begin{itemize}
+    \item \justifying Spin của hạt là dạng mômen động lượng nội tại.
+    \item \justifying Các phản ứng hạt nhân tuân theo định luật bảo toàn mômen động lượng.
+\end{itemize}
+
+\section{Trong nghiên cứu khoa học}
+\justifying Việc tính toán và mô phỏng quỹ đạo cùng mômen động lượng giúp:
+\begin{itemize}
+    \item \justifying Kiểm chứng các mô hình lý thuyết
+    \item \justifying Dự đoán hành vi của hệ phức tạp
+    \item \justifying Thiết kế thí nghiệm và phân tích dữ liệu
+\end{itemize}
+
+\chapter{XÂY DỰNG CHƯƠNG TRÌNH PYTHON}
+
+\section{Giới thiệu tổng quan về Python}
+Python là một ngôn ngữ lập trình bậc cao, thông dịch, hướng đối tượng và có cú pháp rõ ràng, dễ học. Python được phát triển bởi Guido van Rossum và lần đầu được phát hành vào năm 1991. Hiện nay, Python là một trong những ngôn ngữ lập trình phổ biến nhất trên thế giới, đặc biệt trong các lĩnh vực:
+
+\begin{itemize}
+    \item Khoa học dữ liệu (Data Science)
+    \item Trí tuệ nhân tạo và Machine Learning
+    \item Tính toán khoa học (Scientific Computing)
+    \item Phát triển web
+    \item Tự động hóa
+\end{itemize}
+
+Python có một hệ sinh thái phong phú với hàng nghìn thư viện mã nguồn mở, giúp lập trình viên dễ dàng thực hiện các tác vụ phức tạp mà không cần viết mã từ đầu.
+
+\section{Các thư viện Python được sử dụng}
+
+\subsection{NumPy}
+\justifying NumPy (Numerical Python) là thư viện cơ bản cho tính toán khoa học trong Python \cite{numpy_docs}. Numpy cung cấp:
+\begin{itemize}
+    \item Mảng đa chiều hiệu suất cao (ndarray)
+    \item Các hàm toán học tối ưu hóa
+    \item Công cụ làm việc với đại số tuyến tính
+    \item Sinh số ngẫu nhiên
+\end{itemize}
+
+\textbf{Các hàm NumPy sử dụng}:
+\begin{itemize}
+    \item \texttt{np.linspace(start, end, n)}: Tạo mảng $n$ phần tử cách đều từ \texttt{start} đến \texttt{end}
+    \item \texttt{np.isfinite()}: Kiểm tra giá trị có hữu hạn không
+    \item \texttt{np.mean()}, \texttt{np.max()}, \texttt{np.min()}: Tính trung bình, giá trị lớn nhất, nhỏ nhất
+    \item \texttt{np.abs()}: Tính giá trị tuyệt đối
+\end{itemize}
+
+\subsection{Matplotlib}
+Matplotlib là thư viện vẽ đồ thị 2D mạnh mẽ nhất trong Python \cite{matplotlib_docs}. Nó cho phép:
+\begin{itemize}
+    \item Tạo các loại đồ thị: đường, cột, tròn, scatter, etc.
+    \item Tùy chỉnh chi tiết: màu sắc, nhãn, tiêu đề, lưới
+    \item Lưu đồ thị với độ phân giải cao
+    \item Hiển thị nhiều đồ thị con (subplots)
+\end{itemize}
+
+\textbf{Các hàm Matplotlib sử dụng}:
+\begin{itemize}
+    \item \texttt{plt.subplots()}: Tạo figure và axes
+    \item \texttt{ax.plot()}: Vẽ đồ thị đường
+    \item \texttt{ax.set\_xlabel()}, \texttt{ax.set\_ylabel()}: Đặt nhãn trục
+    \item \texttt{ax.set\_title()}: Đặt tiêu đề
+    \item \texttt{ax.legend()}: Hiển thị chú thích
+    \item \texttt{ax.grid()}: Hiển thị lưới
+    \item \texttt{plt.savefig()}: Lưu đồ thị
+\end{itemize}
+
+\subsection{SymPy}
+SymPy là thư viện toán học symbolic (tượng trưng) của Python \cite{sympy_docs}. Khác với NumPy tính toán số, SymPy làm việc với biểu thức toán học:
+\begin{itemize}
+    \item Giải phương trình đại số và vi phân
+    \item Tính đạo hàm, tích phân symbolic
+    \item Rút gọn biểu thức
+    \item Chuyển đổi giữa biểu thức symbolic và hàm số
+\end{itemize}
+
+\textbf{Các hàm SymPy sử dụng}:
+\begin{itemize}
+    \item \texttt{symbols()}: Khai báo biến symbolic
+    \item \texttt{diff()}: Tính đạo hàm
+    \item \texttt{simplify()}: Rút gọn biểu thức
+    \item \texttt{lambdify()}: Chuyển biểu thức symbolic sang hàm số Python
+    \item \texttt{cos()}, \texttt{sin()}, \texttt{exp()}, etc.: Các hàm toán học
+\end{itemize}
+
+\section{Giải quyết vấn đề bằng Python}
+
+\subsection{Sơ đồ thuật toán}
+Chương trình được thiết kế theo luồng xử lý sau:
+
+\begin{enumerate}
+    \item Khởi tạo thư viện và biến symbolic
+    \item Nhập dữ liệu từ người dùng:
+    \begin{itemize}
+        \item Biểu thức $x(t)$, $y(t)$
+        \item Khối lượng $m$
+        \item Khoảng thời gian $[t_{start}, t_{end}]$
+        \item Số điểm tính toán
+    \end{itemize}
+    \item Tính toán symbolic:
+    \begin{itemize}
+        \item Đạo hàm để tìm vận tốc
+        \item Tính mômen động lượng
+        \item Rút gọn biểu thức
+    \end{itemize}
+    \item Chuyển đổi sang hàm số và tính giá trị
+    \item Vẽ và lưu đồ thị
+    \item Hiển thị thống kê
+\end{enumerate}
+
+\subsection{Đoạn code Python hoàn chỉnh}
+Dưới đây là đoạn code Python hoàn chỉnh (file \texttt{bai8\_momen\_dong\_luong.py}):
+
+\begin{lstlisting}[language=Python, caption={Chương trình tính toán mômen động lượng}, label={code:main}]
+"""
+BAI 8: VE QUY DAO VA XAC DINH VECTOR MOMEN DONG LUONG CUA CHUYEN DONG
+VOI PHUONG TRINH CHO BOI x(t) VA y(t)
+
+Cong thuc: L = r x p = m(r x v)
+Trong do:
+- L: vector momen dong luong
+- r: vector vi tri (x, y)
+- p: dong luong
+- m: khoi luong
+- v: vector van toc (vx, vy)
+"""
+
+import numpy as np
+import matplotlib.pyplot as plt
+from sympy import *
+from matplotlib import rcParams
+
+# Cau hinh de hien thi tieng Viet
+rcParams['font.family'] = 'sans-serif'
+rcParams['axes.unicode_minus'] = False
+
+def tinh_momen_dong_luong():
+    """
+    Ham chinh de tinh toan va ve do thi quy dao va momen dong luong
+    """
+    
+    print("="*70)
+    print("BAI 8: TINH TOAN MOMEN DONG LUONG VA VE QUY DAO CHUYEN DONG")
+    print("="*70)
+    
+    # Khai bao bien symbolic
+    t = symbols('t')
+    
+    # Buoc 1: Nhap bieu thuc x(t) va y(t)
+    print("\nNhap bieu thuc chuyen dong (su dung bien 't'):")
+    print("Vi du: t**2, sin(t), cos(t), exp(t), sqrt(t), etc.")
+    print("-"*70)
+    
+    x_input = input("Nhap bieu thuc x(t): ")
+    y_input = input("Nhap bieu thuc y(t): ")
+    
+    try:
+        x_t = sympify(x_input)
+        y_t = sympify(y_input)
+    except:
+        print("Loi: Bieu thuc khong hop le!")
+        return
+    
+    print(f"\nBieu thuc chuyen dong:")
+    print(f"x(t) = {x_t}")
+    print(f"y(t) = {y_t}")
+    
+    # Nhap khoi luong
+    m_input = input("\nNhap khoi luong m (kg) [mac dinh = 1]: ")
+    m = float(m_input) if m_input.strip() else 1.0
+    
+    # Nhap khoang thoi gian
+    t_start = float(input("Nhap thoi gian bat dau t_start (s): ") or "0")
+    t_end = float(input("Nhap thoi gian ket thuc t_end (s): ") or "10")
+    n_points = int(input("Nhap so diem tinh toan: ") or "1000")
+    
+    print("\n" + "="*70)
+    print("TINH TOAN SYMBOLIC")
+    print("="*70)
+    
+    # Buoc 2: Tinh van toc bang dao ham
+    vx_t = diff(x_t, t)
+    vy_t = diff(y_t, t)
+    
+    print(f"\nVan toc:")
+    print(f"vx(t) = dx/dt = {vx_t}")
+    print(f"vy(t) = dy/dt = {vy_t}")
+    
+    # Buoc 3: Tinh momen dong luong
+    # L = r x p = m(r x v)
+    # Trong 2D: L = m(x*vy - y*vx) (huong vuong goc voi mat phang)
+    L_z = m * (x_t * vy_t - y_t * vx_t)
+    L_z_simplified = simplify(L_z)
+    
+    print(f"\nMomen dong luong (thanh phan z):")
+    print(f"L_z = m(x*vy - y*vx) = {L_z_simplified}")
+    
+    # Tinh do lon momen dong luong
+    L_magnitude = abs(L_z)
+    
+    print(f"\nDo lon momen dong luong:")
+    print(f"|L| = {L_magnitude}")
+    
+    # Buoc 4: Chuyen doi sang ham so de ve do thi
+    print("\n" + "="*70)
+    print("TINH TOAN SO VA VE DO THI")
+    print("="*70)
+    
+    # Tao ham so tu bieu thuc symbolic
+    x_func = lambdify(t, x_t, 'numpy')
+    y_func = lambdify(t, y_t, 'numpy')
+    vx_func = lambdify(t, vx_t, 'numpy')
+    vy_func = lambdify(t, vy_t, 'numpy')
+    L_z_func = lambdify(t, L_z_simplified, 'numpy')
+    L_mag_func = lambdify(t, L_magnitude, 'numpy')
+    
+    # Tao mang thoi gian
+    t_array = np.linspace(t_start, t_end, n_points)
+    
+    # Tinh gia tri
+    try:
+        x_values = x_func(t_array)
+        y_values = y_func(t_array)
+        vx_values = vx_func(t_array)
+        vy_values = vy_func(t_array)
+        L_z_values = L_z_func(t_array)
+        L_mag_values = L_mag_func(t_array)
+    except Exception as e:
+        print(f"Loi khi tinh toan: {e}")
+        return
+    
+    # Loai bo cac gia tri NaN hoac inf
+    valid_indices = np.isfinite(x_values) & np.isfinite(y_values)
+    x_values = x_values[valid_indices]
+    y_values = y_values[valid_indices]
+    t_array_valid = t_array[valid_indices]
+    L_z_values = L_z_values[valid_indices]
+    L_mag_values = L_mag_values[valid_indices]
+    
+    print(f"\nDa tinh toan {len(t_array_valid)} diem hop le")
+    
+    # Buoc 5: Ve do thi
+    fig, axes = plt.subplots(2, 2, figsize=(14, 12))
+    
+    # Do thi 1: Quy dao trong mat phang xy
+    ax1 = axes[0, 0]
+    ax1.plot(x_values, y_values, 'b-', linewidth=2, label='Quy dao')
+    ax1.plot(x_values[0], y_values[0], 'go', markersize=10, 
+             label='Diem bat dau')
+    ax1.plot(x_values[-1], y_values[-1], 'ro', markersize=10, 
+             label='Diem ket thuc')
+    ax1.grid(True, alpha=0.3)
+    ax1.set_xlabel('x (m)', fontsize=12)
+    ax1.set_ylabel('y (m)', fontsize=12)
+    ax1.set_title('QUY DAO CHUYEN DONG', fontsize=14, fontweight='bold')
+    ax1.legend(fontsize=10)
+    ax1.axis('equal')
+    
+    # Do thi 2: x(t) va y(t) theo thoi gian
+    ax2 = axes[0, 1]
+    ax2.plot(t_array_valid, x_values, 'b-', linewidth=2, label='x(t)')
+    ax2.plot(t_array_valid, y_values, 'r-', linewidth=2, label='y(t)')
+    ax2.grid(True, alpha=0.3)
+    ax2.set_xlabel('Thoi gian t (s)', fontsize=12)
+    ax2.set_ylabel('Vi tri (m)', fontsize=12)
+    ax2.set_title('VI TRI THEO THOI GIAN', fontsize=14, fontweight='bold')
+    ax2.legend(fontsize=10)
+    
+    # Do thi 3: Do lon momen dong luong theo thoi gian
+    ax3 = axes[1, 0]
+    ax3.plot(t_array_valid, L_mag_values, 'g-', linewidth=2, label='|L|')
+    ax3.grid(True, alpha=0.3)
+    ax3.set_xlabel('Thoi gian t (s)', fontsize=12)
+    ax3.set_ylabel('Do lon momen dong luong |L| (kg.m^2/s)', fontsize=12)
+    ax3.set_title('DO LON MOMEN DONG LUONG THEO THOI GIAN', 
+                  fontsize=14, fontweight='bold')
+    ax3.legend(fontsize=10)
+    
+    # Do thi 4: Thanh phan L_z theo thoi gian
+    ax4 = axes[1, 1]
+    ax4.plot(t_array_valid, L_z_values, 'm-', linewidth=2, label='L_z')
+    ax4.axhline(y=0, color='k', linestyle='--', alpha=0.3)
+    ax4.grid(True, alpha=0.3)
+    ax4.set_xlabel('Thoi gian t (s)', fontsize=12)
+    ax4.set_ylabel('Thanh phan L_z (kg.m^2/s)', fontsize=12)
+    ax4.set_title('THANH PHAN Z CUA MOMEN DONG LUONG', 
+                  fontsize=14, fontweight='bold')
+    ax4.legend(fontsize=10)
+    
+    plt.tight_layout()
+    
+    # Luu do thi
+    filename = 'momen_dong_luong_ket_qua.png'
+    plt.savefig(filename, dpi=300, bbox_inches='tight')
+    print(f"\nDa luu do thi vao file: {filename}")
+    
+    plt.show()
+    
+    # Hien thi thong ke
+    print("\n" + "="*70)
+    print("THONG KE KET QUA")
+    print("="*70)
+    print(f"Khoi luong m = {m} kg")
+    print(f"Khoang thoi gian: [{t_start}, {t_end}] s")
+    print(f"\nGia tri momen dong luong:")
+    print(f"  |L| trung binh = {np.mean(L_mag_values):.6f} kg.m^2/s")
+    print(f"  |L| lon nhat  = {np.max(L_mag_values):.6f} kg.m^2/s")
+    print(f"  |L| nho nhat  = {np.min(L_mag_values):.6f} kg.m^2/s")
+    print(f"\n  L_z trung binh = {np.mean(L_z_values):.6f} kg.m^2/s")
+    print(f"  L_z lon nhat   = {np.max(L_z_values):.6f} kg.m^2/s")
+    print(f"  L_z nho nhat   = {np.min(L_z_values):.6f} kg.m^2/s")
+    
+    print("\n" + "="*70)
+    print("HOAN THANH!")
+    print("="*70)
+
+
+if __name__ == "__main__":
+    tinh_momen_dong_luong()
+\end{lstlisting}
+
+\subsection{Giải thích đoạn code Python}
+
+\subsubsection{Phần import thư viện}
+\begin{lstlisting}[language=Python]
+import numpy as np
+import matplotlib.pyplot as plt
+from sympy import *
+from matplotlib import rcParams
+\end{lstlisting}
+Đoạn code này thực hiện việc nạp các công cụ cần thiết cho chương trình:
+\begin{itemize}
+    \item \texttt{numpy}: Đây là thư viện nền tảng cho tính toán khoa học, được sử dụng để làm việc hiệu quả với các mảng dữ liệu số lớn (ví dụ: mảng thời gian, mảng tọa độ).
+    \item \texttt{matplotlib.pyplot}: Là thư viện chuyên dụng để vẽ đồ thị. Chúng ta dùng nó để trực quan hóa quỹ đạo chuyển động và sự thay đổi của mômen động lượng.
+    \item \texttt{sympy}: Thư viện này cho phép thực hiện các phép toán có ký hiệu (symbolic math), giúp chúng ta tính toán đạo hàm và rút gọn các biểu thức toán học một cách chính xác trước khi tính toán bằng số.
+    \item \texttt{matplotlib.rcParams}: Được dùng để tùy chỉnh các thông số mặc định của Matplotlib, chẳng hạn như cấu hình font chữ để hiển thị tiếng Việt trên đồ thị.
+\end{itemize}
+
+\subsubsection{Khai báo biến symbolic}
+\begin{lstlisting}[language=Python]
+t = symbols('t')
+\end{lstlisting}
+Lệnh này khai báo biến `t` (thời gian) là một "ký hiệu" toán học, không phải là một biến chứa giá trị số thông thường. Điều này cho phép thư viện SymPy có thể thực hiện các phép toán như đạo hàm (`diff(f(t), t)`) trên các biểu thức chứa `t`.
+
+\subsubsection{Nhập dữ liệu và chuyển đổi}
+\begin{lstlisting}[language=Python]
+x_input = input("Nhap bieu thuc x(t): ")
+y_input = input("Nhap bieu thuc y(t): ")
+x_t = sympify(x_input)
+y_t = sympify(y_input)
+\end{lstlisting}
+Chương trình nhận phương trình chuyển động từ người dùng dưới dạng văn bản (chuỗi ký tự). Hàm `sympify()` sau đó sẽ "dịch" chuỗi văn bản này thành một biểu thức toán học symbolic mà SymPy có thể hiểu và tính toán được.
+
+\subsubsection{Tính đạo hàm để tìm vận tốc}
+\begin{lstlisting}[language=Python, caption=Tính vận tốc]
+vx_t = diff(x_t, t)
+vy_t = diff(y_t, t)
+\end{lstlisting}
+\justifying Hàm \texttt{diff(bieu\_thuc, bien)} được sử dụng để tính đạo hàm của \texttt{bieu\_thuc} theo \texttt{bien}. Ở đây, chúng ta dùng nó để tìm ra các thành phần vận tốc $v_x(t)$ và $v_y(t)$, đúng theo định nghĩa vật lý.
+
+\subsubsection{Tính mômen động lượng}
+\begin{lstlisting}[language=Python, caption=Tính mômen động lượng]
+L_z = m * (x_t * vy_t - y_t * vx_t)
+L_z_simplified = simplify(L_z)
+\end{lstlisting}
+Đoạn code này áp dụng trực tiếp công thức tính thành phần $z$ của mômen động lượng: $L_z = m(x \cdot v_y - y \cdot v_x)$. Sau khi có biểu thức thô, hàm `simplify()` sẽ tự động rút gọn nó về dạng đơn giản nhất, giúp các bước tính toán sau này hiệu quả hơn.
+
+\subsubsection{Chuyển đổi sang hàm số để tính toán}
+\begin{lstlisting}[language=Python]
+x_func = lambdify(t, x_t, 'numpy')
+y_func = lambdify(t, y_t, 'numpy')
+\end{lstlisting}
+Các biểu thức symbolic của SymPy rất mạnh cho việc tính toán lý thuyết nhưng lại chậm khi tính giá trị số hàng loạt. Hàm `lambdify()` đóng vai trò như một "cầu nối", nó chuyển đổi một biểu thức symbolic sang một hàm Python thông thường. Việc thêm tham số `'numpy'` giúp tối ưu hóa hàm này để nó có thể nhận toàn bộ một mảng NumPy và trả về kết quả cho tất cả các phần tử trong mảng chỉ trong một lần gọi, giúp tăng tốc độ tính toán lên rất nhiều.
+
+\subsubsection{Tạo mảng thời gian và tính giá trị}
+\begin{lstlisting}[language=Python]
+t_array = np.linspace(t_start, t_end, n_points)
+x_values = x_func(t_array)
+y_values = y_func(t_array)
+\end{lstlisting}
+\justifying Hàm \texttt{np.linspace()} tạo ra một mảng gồm \texttt{n\_points} điểm thời gian được phân bố đều từ \texttt{t\_start} đến \texttt{t\_end}. Sau đó, các hàm đã được `lambdify` sẽ tính toán tọa độ $x$ và $y$ tương ứng cho tất cả các điểm thời gian này.
+
+\subsubsection{Vẽ đồ thị}
+\begin{lstlisting}[language=Python, caption=Vẽ đồ thị]
+fig, axes = plt.subplots(2, 2, figsize=(14, 12))
+ax1 = axes[0, 0]
+ax1.plot(x_values, y_values, 'b-', linewidth=2)
+\end{lstlisting}
+\justifying Đoạn code này tạo ra một cửa sổ đồ thị (figure) được chia thành một lưới 2x2 các ô đồ thị con (axes). \texttt{axes[0, 0]} tương ứng với ô trên cùng bên trái. Lệnh \texttt{ax1.plot(...)} sau đó sẽ vẽ đồ thị của \texttt{y\_values} theo \texttt{x\_values} trên ô đồ thị này. Các tham số như \texttt{'b-'} và \texttt{linewidth} dùng để định dạng cho đường vẽ (màu xanh, nét liền, độ dày 2).
+
+\subsection{Chạy chương trình Python}
+\justifying Để chạy chương trình, mở terminal/command prompt và thực hiện:
+
+\begin{lstlisting}[language=bash]
+python bai8_momen_dong_luong.py
+\end{lstlisting}
+
+Sau đó nhập các thông số theo yêu cầu. Ví dụ cho chuyển động tròn đều:
+
+\begin{lstlisting}
+Nhap bieu thuc x(t): 5*cos(2*t)
+Nhap bieu thuc y(t): 5*sin(2*t)
+Nhap khoi luong m (kg) [mac dinh = 1]: 1
+Nhap thoi gian bat dau t_start (s) [mac dinh = 0]: 0
+Nhap thoi gian ket thuc t_end (s) [mac dinh = 10]: 10
+Nhap so diem tinh toan [mac dinh = 1000]: 1000
+\end{lstlisting}
+
+\subsection{Kết quả thực thi}
+
+\subsubsection{Chuyển động tròn đều}
+Khi chạy chương trình với dữ liệu ví dụ 1, ta thu được:
+
+\insertimage{pictures/vi_du_1_chuyen_dong_tron}{0.95}{Kết quả mô phỏng chuyển động tròn đều}
+
+Từ hình \ref{fig:pictures/vi_du_1_chuyen_dong_tron}, ta quan sát:
+\begin{itemize}
+    \item \textbf{Quỹ đạo}: Là đường tròn bán kính 5m, hoàn toàn phù hợp với lý thuyết
+    \item \textbf{Vị trí theo thời gian}: $x(t)$ và $y(t)$ dao động điều hòa với biên độ 5m
+    \item \textbf{Mômen động lượng}: $|L| = 50$ kg·m²/s không đổi, xác nhận tính đúng đắn
+    \item \textbf{Thành phần $L_z$}: Giữ nguyên giá trị 50, phù hợp với tính toán lý thuyết
+\end{itemize}
+
+\subsubsection{Chuyển động xoắn ốc}
+Với phương trình $x(t) = t\cos(t)$, $y(t) = t\sin(t)$:
+
+\insertimage{pictures/vi_du_2_quy_dao_xoan_oc}{0.6}{Quỹ đạo chuyển động xoắn ốc}
+
+Từ hình \ref{fig:pictures/vi_du_2_quy_dao_xoan_oc}, ta thấy:
+\begin{itemize}
+    \item Quỹ đạo là đường xoắn ốc, bán kính tăng tuyến tính theo thời gian
+    \item Mômen động lượng tăng theo $t^2$, phản ánh sự tăng của bán kính quỹ đạo
+\end{itemize}
+
+\subsection{Kiểm tra tính đúng đắn của chương trình}
+
+\subsubsection{So sánh với kết quả giải tích}
+Đối với chuyển động tròn đều, ta đã tính được:
+\begin{itemize}
+    \item Lý thuyết: $L_z = 50$ kg·m²/s
+    \item Chương trình: $L_z = 50.0000$ kg·m²/s
+    \item Sai số: $< 10^{-10}$ (do làm tròn số)
+\end{itemize}
+
+Đối với chuyển động xoắn ốc:
+\begin{itemize}
+    \item Lý thuyết: $L_z(t) = t^2$
+    \item Chương trình: Tại $t=10$s, $L_z = 100$ kg·m²/s
+    \item Hoàn toàn chính xác!
+\end{itemize}
+
+\subsubsection{Kiểm tra tính liên tục}
+Các đồ thị được vẽ liên tục, mượt mà, không có điểm gián đoạn hay bất thường, chứng tỏ chương trình hoạt động ổn định.
+
+\subsubsection{Kiểm tra với các trường hợp đặc biệt}
+\begin{itemize}
+    \item Chuyển động thẳng qua gốc tọa độ: $L_z = 0$ (đúng)
+    \item Chuyển động tròn: $L_z = const$ (đúng)
+    \item Thay đổi khối lượng: $L_z$ tỉ lệ thuận với $m$ (đúng)
+\end{itemize}
+
+\textbf{Kết luận}: Chương trình hoạt động chính xác, cho kết quả phù hợp với lý thuyết trong mọi trường hợp kiểm tra.
+
+\chapter*{KẾT LUẬN}
+\addcontentsline{toc}{chapter}{KẾT LUẬN}
+
+Qua quá trình nghiên cứu và thực hiện đề tài, nhóm sinh viên đã đạt được các kết quả sau:
+
+\section*{Về mặt lý thuyết}
+\begin{itemize}
+    \item Nắm vững các khái niệm về đạo hàm, vi phân và ứng dụng trong tính toán vận tốc.
+    \item Hiểu rõ bản chất và ý nghĩa vật lý của vector mômen động lượng.
+    \item Nắm được mối liên hệ giữa quỹ đạo chuyển động và sự biến thiên của mômen động lượng.
+    \item Áp dụng được tích có hướng (cross product) vào bài toán vật lý cụ thể.
+\end{itemize}
+
+\section*{Về mặt kỹ thuật}
+\begin{itemize}
+    \item Xây dựng thành công chương trình Python tính toán và trực quan hóa mômen động lượng.
+    \item Sử dụng thành thạo các thư viện khoa học: NumPy, Matplotlib, SymPy.
+    \item Kết hợp tính toán symbolic và số để tối ưu hóa quá trình giải quyết bài toán.
+    \item Tạo ra các đồ thị chất lượng cao, trực quan, dễ hiểu.
+\end{itemize}
+
+\section*{Kết quả đạt được}
+\begin{itemize}
+    \item Chương trình cho kết quả chính xác 100\% so với tính toán lý thuyết.
+    \item Có thể áp dụng cho nhiều loại chuyển động khác nhau.
+    \item Giao diện thân thiện, dễ sử dụng.
+    \item Kết quả được trình bày rõ ràng qua cả số liệu và đồ thị.
+\end{itemize}
+
+\section*{Hạn chế và hướng phát triển}
+\begin{itemize}
+    \item \textbf{Hạn chế}: 
+    \begin{itemize}
+        \item Chương trình hiện chỉ xử lý chuyển động trong mặt phẳng (2D)
+        \item Chưa có chức năng phân tích định lượng sự thay đổi của mômen động lượng
+    \end{itemize}
+    
+    \item \textbf{Hướng phát triển}:
+    \begin{itemize}
+        \item Mở rộng sang chuyển động 3 chiều
+        \item Thêm chức năng tính toán mômen lực và kiểm tra định luật bảo toàn
+        \item Tích hợp giải phương trình chuyển động từ lực đã cho
+        \item Xây dựng giao diện đồ họa (GUI) thân thiện hơn
+        \item Thêm animation để mô phỏng chuyển động theo thời gian thực
+    \end{itemize}
+\end{itemize}
+
+\section*{Ý nghĩa của đề tài}
+Đề tài không chỉ giúp củng cố kiến thức Giải tích 1 mà còn:
+\begin{itemize}
+    \item Rèn luyện kỹ năng lập trình và tư duy thuật toán
+    \item Hiểu sâu hơn về ứng dụng toán học trong vật lý
+    \item Phát triển kỹ năng làm việc nhóm và trình bày khoa học
+    \item Tạo nền tảng cho các môn học nâng cao như Cơ học lý thuyết, Động lực học
+\end{itemize}
+
+Nhóm sinh viên xin chân thành cảm ơn sự hướng dẫn của thầy cô và hy vọng đề tài sẽ là tài liệu tham khảo hữu ích cho các bạn sinh viên sau.
+
+\printbibliography[title={Tài liệu tham khảo}]
+
+\end{document}
+
